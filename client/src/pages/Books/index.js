@@ -17,7 +17,7 @@ export default function Books(){
 
 
     useEffect(() => {
-        api.get('api/Book/v1/asc/5/1', {
+        api.get('api/Book/v1/asc/20/1', {
             headers:{
                 Authorization: `Bearer ${accessToken}`
             }
@@ -26,7 +26,33 @@ export default function Books(){
         })
     }, [accessToken]);
 
+    async function logout(){
+        try {
+            await api.get("api/auth/v1/revoke", {
+                headers:{
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+           
+            localStorage.clear();
+            history.push('/');
+        } catch (error) {
+            alert("Logout Falhou");
+        }
+    }
 
+    async function deleteBook(id){
+        try {
+            await api.delete(`api/Book/v1/${id}`, {
+                headers:{
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+            setBooks(books.filter(book => book.id !== id))
+        } catch (error) {
+            alert("Houve um erro ao deletar o livro, tente novamente mais tarde!");
+        }
+    }
 
     return (
         <div className="book-container">
@@ -34,7 +60,7 @@ export default function Books(){
                 <img src={logoImage} alt="Erudio"/>
                 <span>Welcome, <strong>{userName.toUpperCase()}</strong>!</span>
                 <Link className="button" to="book/new">Add new Book</Link>
-                <button type="button">
+                <button onClick={logout} type="button">
                     <FiPower size={18} color="#251FC5" />
                 </button>
             </header>
@@ -54,7 +80,7 @@ export default function Books(){
                     <button type="button">
                         <FiEdit size={20} color="#251FC5" />
                     </button>
-                    <button type="button">
+                    <button onClick={() => deleteBook(book.id)} type="button">
                         <FiTrash2 size={20} color="#251FC5" />
                     </button>
                 </li>
