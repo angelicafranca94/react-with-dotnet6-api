@@ -16,7 +16,7 @@ export default function Login(){
                     <input placeholder="UserName"/>
                     <input type="password" placeholder="Password"/>
 
-                    <button type="submit">Login</button>
+                    <button className="button" type="submit">Login</button>
                 </form>
             </section>
             <img src={padlock} alt="Login"/>
