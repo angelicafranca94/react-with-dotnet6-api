@@ -26,9 +26,9 @@ export default function NewBook(){
             launchDate,
             price
         }
-        console.log(data)
+       
         const accessToken = localStorage.getItem('accessToken')
-        console.log(accessToken)
+       
         try {
             await api.post('api/Book/v1', data, {
                 headers:{
@@ -36,7 +36,7 @@ export default function NewBook(){
                 }
             })
         } catch (error) {
-            console.log(error)
+            
             alert('Erro ao gravar livro, tente novamente')
         }
 
