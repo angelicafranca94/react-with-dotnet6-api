@@ -41,6 +41,15 @@ export default function Books(){
         }
     }
 
+    
+    async function editBook(id){
+        try {
+           history.push(`book/new/${id}`)
+        } catch (error) {
+            alert("Houve um erro ao editar o livro, tente novamente mais tarde!");
+        }
+    }
+
     async function deleteBook(id){
         try {
             await api.delete(`api/Book/v1/${id}`, {
@@ -59,7 +68,7 @@ export default function Books(){
             <header>
                 <img src={logoImage} alt="Erudio"/>
                 <span>Welcome, <strong>{userName.toUpperCase()}</strong>!</span>
-                <Link className="button" to="book/new">Add new Book</Link>
+                <Link className="button" to="book/new/0">Add new Book</Link>
                 <button onClick={logout} type="button">
                     <FiPower size={18} color="#251FC5" />
                 </button>
@@ -78,7 +87,7 @@ export default function Books(){
                     <p>{Intl.DateTimeFormat('pt-BR').format(new Date(book.launchDate))}</p>
 
                     <button type="button">
-                        <FiEdit size={20} color="#251FC5" />
+                        <FiEdit onClick={() => editBook(book.id)} size={20} color="#251FC5" />
                     </button>
                     <button onClick={() => deleteBook(book.id)} type="button">
                         <FiTrash2 size={20} color="#251FC5" />
