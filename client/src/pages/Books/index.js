@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './styles.css'
 import logoImage from '../../assets/logo.svg'
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FiPower, FiEdit, FiTrash2 } from 'react-icons/fi'
 import api from '../../services/api'
 
@@ -9,7 +9,7 @@ export default function Books(){
 
 
     const [books, setBooks] = useState([]);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
 
 
     const userName = localStorage.getItem('userName');
@@ -22,7 +22,7 @@ export default function Books(){
         }
     }
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -45,7 +45,7 @@ export default function Books(){
             });
            
             localStorage.clear();
-            history.push('/');
+            navigate('/');
         } catch (error) {
             alert("Logout Falhou");
         }
@@ -54,7 +54,7 @@ export default function Books(){
     
     async function editBook(id){
         try {
-           history.push(`book/new/${id}`)
+           navigate(`/book/new/${id}`)
         } catch (error) {
             alert("Houve um erro ao editar o livro, tente novamente mais tarde!");
         }
@@ -74,7 +74,7 @@ export default function Books(){
             <header>
                 <img src={logoImage} alt="Erudio"/>
                 <span>Welcome, <strong>{userName.toUpperCase()}</strong>!</span>
-                <Link className="button" to="book/new/0">Add new Book</Link>
+                <Link className="button" to="/book/new/0">Add new Book</Link>
                 <button onClick={logout} type="button">
                     <FiPower size={18} color="#251FC5" />
                 </button>

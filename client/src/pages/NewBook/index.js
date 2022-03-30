@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './styles.css'
 import logoImage from '../../assets/logo.svg'
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi'
 import api from '../../services/api'
 
@@ -17,7 +17,7 @@ export default function NewBook(){
     const { bookId } = useParams()
 
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
 
     const accessToken = localStorage.getItem('accessToken')
@@ -46,7 +46,7 @@ export default function NewBook(){
             
         } catch (error) {
             alert("Erro ao editar livro! Tente novamente mais tarde")
-            history.push('/books')
+            navigate('/books')
         }
     }
 
@@ -76,7 +76,7 @@ export default function NewBook(){
             alert('Erro ao gravar livro, tente novamente')
         }
 
-        history.push('/books')
+        navigate('/books')
     }
 
     return(

@@ -3,7 +3,7 @@ import './styles.css';
 import logoImage from '../../assets/logo.svg'
 import padlock from '../../assets/padlock.png'
 import api from '../../services/api'
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Login(){
@@ -11,7 +11,7 @@ export default function Login(){
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     async function login(e){
         e.preventDefault();
@@ -29,7 +29,7 @@ export default function Login(){
             localStorage.setItem('accessToken', response.data.accessToken);
             localStorage.setItem('refreshToken', response.data.refreshToken);
 
-            history.push('/books');
+            navigate('/books');
         } catch (error) {
             alert('Erro ao logar, tente novamente!');
         }
